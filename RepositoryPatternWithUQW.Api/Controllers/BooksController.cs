@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryPatternWithUQW.Core.Consts;
 using RepositoryPatternWithUQW.Core.interfaces;
 using RepositoryPatternWithUQW.Core.Models;
 
@@ -40,6 +41,18 @@ namespace RepositoryPatternWithUQW.Api.Controllers
             return Ok(_bookRepository.Find(b => b.Title.Contains("NEW Books "), new[] { "Author" }));
         }
 
+
+        [HttpGet("GetOrdered")]
+        public IActionResult GetOrdered()
+        {
+            return Ok(_bookRepository.FindAll(b => b.Title.Contains("NEW Books "),null,null,b=>b.Id,OrderBy.Descending));
+        }
+
+        [HttpGet("AddOne")]
+        public IActionResult AddOne()
+        {
+            return Ok(_bookRepository.Add(new Book { Title="New Test Book",AuthorId=2}));
+        }
 
 
 
