@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RepositoryPatternWithUQW.Core;
 using RepositoryPatternWithUQW.Core.interfaces;
 using RepositoryPatternWithUQW.EF;
 using RepositoryPatternWithUQW.EF.Repsoitories;
@@ -27,8 +28,8 @@ namespace RepositoryPatternWithUQW.Api
                         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
 
-            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            //services.AddTransient<IUnitOfWork, UnitOfWork>();
+            //services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddSwaggerGen(c =>
             {

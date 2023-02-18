@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryPatternWithUQW.Core;
 using RepositoryPatternWithUQW.Core.interfaces;
 using RepositoryPatternWithUQW.Core.Models;
+using RepositoryPatternWithUQW.EF;
 
 namespace RepositoryPatternWithUQW.Api.Controllers
 {
@@ -9,24 +11,24 @@ namespace RepositoryPatternWithUQW.Api.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        private readonly IBaseRepository<Author> _authorRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
 
-        public AuthorsController(IBaseRepository<Author> authorRepository)
+        public AuthorsController(IUnitOfWork unitOfWork)
         {
-            _authorRepository= authorRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public IActionResult GetById()
         {
-            return Ok(_authorRepository.GetById(1));
+            return Ok(_unitOfWork.Authors.GetById(1));
         }
 
         [HttpGet("GetByIdAsync")]
         public async Task<IActionResult> GetByIdAsync()
         {
-            return Ok(await _authorRepository.GetByIdAsync(1));
+            return Ok(await _unitOfWork.Authors.GetByIdAsync(1));
         }
 
 
