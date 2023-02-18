@@ -22,6 +22,28 @@ namespace RepositoryPatternWithUQW.Api.Controllers
         {
             return Ok(_bookRepository.GetById(1));
         }
+        [HttpGet("GetALl")]
+        public IActionResult GetAll()
+        {
+            return Ok(_bookRepository.GetAll());
+        }
+
+        [HttpGet("GetByName")]
+        public IActionResult GetByName()
+        {
+            return Ok(_bookRepository.Find(b=>b.Title == "NEW Books ", new[] {"Author"}));
+        }
+
+        [HttpGet("GetAllWithAuthors")]
+        public IActionResult GetAllWithAuthors()
+        {
+            return Ok(_bookRepository.Find(b => b.Title.Contains("NEW Books "), new[] { "Author" }));
+        }
+
+
+
+
+
 
 
     }
